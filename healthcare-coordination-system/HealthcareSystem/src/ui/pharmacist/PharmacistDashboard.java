@@ -154,8 +154,8 @@ public class PharmacistDashboard extends JFrame {
         
         JButton fillButton = new JButton("✓ Fill Selected Prescription");
         fillButton.setBackground(new Color(34, 139, 34));
-        fillButton.setForeground(Color.WHITE);
-        fillButton.setFont(new Font("Arial", Font.BOLD, 12));
+        fillButton.setForeground(Color.BLACK);
+        fillButton.setFont(new Font("Arial", Font.PLAIN, 12));
         fillButton.addActionListener(e -> fillSelectedPrescription());
         
         JButton viewDetailsButton = new JButton("View Details");
@@ -323,7 +323,7 @@ public class PharmacistDashboard extends JFrame {
         JButton submitButton = new JButton("Submit Restock Request to Manager");
         submitButton.setFont(new Font("Arial", Font.BOLD, 14));
         submitButton.setBackground(new Color(255, 140, 0)); // Orange
-        submitButton.setForeground(Color.WHITE);
+        submitButton.setForeground(Color.BLACK);
         submitButton.addActionListener(e -> {
             createRestockRequest(
                 medicationCombo,

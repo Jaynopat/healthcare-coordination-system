@@ -168,13 +168,13 @@ public class PharmacyManagerDashboard extends JFrame {
         
         JButton approveButton = new JButton("✓ Approve Request");
         approveButton.setBackground(new Color(34, 139, 34)); // Green
-        approveButton.setForeground(Color.WHITE);
+        approveButton.setForeground(Color.DARK_GRAY);
         approveButton.setFont(new Font("Arial", Font.BOLD, 12));
         approveButton.addActionListener(e -> approveSelectedRequest());
         
         JButton rejectButton = new JButton("✗ Reject Request");
         rejectButton.setBackground(new Color(178, 34, 34)); // Dark red
-        rejectButton.setForeground(Color.WHITE);
+        rejectButton.setForeground(Color.RED);
         rejectButton.setFont(new Font("Arial", Font.BOLD, 12));
         rejectButton.addActionListener(e -> rejectSelectedRequest());
         

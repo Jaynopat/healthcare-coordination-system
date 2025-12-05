@@ -86,7 +86,7 @@ public class DoctorDashboard extends JFrame {
     
     private JPanel createHeaderPanel() {
         JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setBackground(new Color(70, 130, 180));
+        headerPanel.setBackground(new Color(41, 128, 185)); // Vibrant blue - changed from steel blue
         headerPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
         
         JLabel titleLabel = new JLabel("Welcome, Dr. " + currentUser.getFullName());
@@ -95,6 +95,9 @@ public class DoctorDashboard extends JFrame {
         
         JButton logoutButton = new JButton("Logout");
         logoutButton.setFont(new Font("Arial", Font.PLAIN, 14));
+        logoutButton.setBackground(new Color(236, 240, 241));
+        logoutButton.setForeground(new Color(44, 62, 80));
+        logoutButton.setFocusPainted(false);
         logoutButton.addActionListener(e -> {
             dispose();
             // Reopen login screen
@@ -139,12 +142,24 @@ public class DoctorDashboard extends JFrame {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         
         JButton refreshButton = new JButton("Refresh");
+        refreshButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        refreshButton.setBackground(new Color(149, 165, 166));
+        refreshButton.setForeground(Color.BLACK);
+        refreshButton.setFocusPainted(false);
         refreshButton.addActionListener(e -> loadAppointments());
         
         JButton completeButton = new JButton("Complete Appointment");
+        completeButton.setFont(new Font("Arial", Font.PLAIN, 13));
+        completeButton.setBackground(new Color(46, 204, 113)); // Bright green
+        completeButton.setForeground(Color.BLACK);
+        completeButton.setFocusPainted(false);
         completeButton.addActionListener(e -> completeSelectedAppointment());
         
         JButton viewDetailsButton = new JButton("View Details");
+        viewDetailsButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        viewDetailsButton.setBackground(new Color(52, 152, 219));
+        viewDetailsButton.setForeground(Color.BLACK);
+        viewDetailsButton.setFocusPainted(false);
         viewDetailsButton.addActionListener(e -> viewAppointmentDetails());
         
         buttonsPanel.add(refreshButton);
@@ -188,8 +203,9 @@ public class DoctorDashboard extends JFrame {
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         
         JButton refreshButton = new JButton("Refresh");
-        refreshButton.addActionListener(e -> loadPatients());
-        
+        refreshButton.setFont(new Font("Arial", Font.BOLD, 13));
+        refreshButton.setBackground(new Color(41, 128, 185)); // Vibrant blue
+        refreshButton.setForeground(Color.BLACK);
         buttonsPanel.add(refreshButton);
         
         panel.add(buttonsPanel, BorderLayout.SOUTH);
@@ -268,12 +284,14 @@ public class DoctorDashboard extends JFrame {
         infoLabel.setForeground(new Color(100, 100, 100));
         formPanel.add(infoLabel, gbc);
         
-        // Submit Button
+        // Submit Button - IMPROVED COLORS
         gbc.gridy = 7;
         JButton createButton = new JButton("Create & Send Prescription to Pharmacy");
-        createButton.setFont(new Font("Arial", Font.BOLD, 14));
-        createButton.setBackground(new Color(34, 139, 34));
-        createButton.setForeground(Color.WHITE);
+        createButton.setFont(new Font("Arial", Font.PLAIN, 14));
+        createButton.setBackground(new Color(46, 204, 113)); // Bright green - CHANGED
+        createButton.setForeground(Color.BLACK);
+        createButton.setFocusPainted(false);
+        createButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         createButton.addActionListener(e -> {
             createPrescription(
                 appointmentIdField.getText(),

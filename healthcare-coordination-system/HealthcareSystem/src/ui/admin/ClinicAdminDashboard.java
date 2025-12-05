@@ -224,7 +224,7 @@ public class ClinicAdminDashboard extends JFrame {
         
         JButton addUserButton = new JButton("+ Add New User");
         addUserButton.setBackground(new Color(34, 139, 34));
-        addUserButton.setForeground(Color.WHITE);
+        addUserButton.setForeground(Color.BLACK);
         addUserButton.addActionListener(e -> addNewUser());
         
         JButton viewDetailsButton = new JButton("View Details");

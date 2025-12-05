@@ -12,58 +12,47 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * LoginFrame - First screen users see
- * Authenticates users and directs them to their role-specific dashboard
- */
 public class LoginFrame extends JFrame {
     
-    // UI Components
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JLabel statusLabel;
     
-    // Constructor - sets up the login screen
     public LoginFrame() {
         initializeUI();
     }
     
-    /**
-     * Initialize and setup the UI components
-     */
     private void initializeUI() {
-        // Set window properties
         setTitle("Healthcare Coordination System - Login");
-        setSize(500, 400);
+        setSize(500, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Center on screen
+        setLocationRelativeTo(null);
         setResizable(false);
         
-        // Create main panel with padding
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout(10, 10));
+        JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
-        mainPanel.setBackground(new Color(240, 248, 255)); // Light blue background
+        mainPanel.setBackground(new Color(245, 245, 245));
         
         // Title Panel
         JPanel titlePanel = new JPanel();
-        titlePanel.setBackground(new Color(70, 130, 180)); // Steel blue
+        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.setBackground(new Color(70, 130, 180));
         titlePanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
         
         JLabel titleLabel = new JLabel("Healthcare Coordination System");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
         titleLabel.setForeground(Color.WHITE);
-        titlePanel.add(titleLabel);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         JLabel subtitleLabel = new JLabel("Connecting Clinics and Pharmacies");
-        subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+        subtitleLabel.setFont(new Font("Arial", Font.PLAIN, 13));
         subtitleLabel.setForeground(Color.WHITE);
+        subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        JPanel titleWrapper = new JPanel(new BorderLayout());
-        titleWrapper.setBackground(new Color(70, 130, 180));
-        titleWrapper.add(titleLabel, BorderLayout.CENTER);
-        titleWrapper.add(subtitleLabel, BorderLayout.SOUTH);
+        titlePanel.add(titleLabel);
+        titlePanel.add(Box.createVerticalStrut(8));
+        titlePanel.add(subtitleLabel);
         
         // Login Form Panel
         JPanel formPanel = new JPanel(new GridBagLayout());
@@ -77,16 +66,10 @@ public class LoginFrame extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 10, 10, 10);
         
-        // Username Label
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        JLabel loginLabel = new JLabel("Please Login", SwingConstants.CENTER);
-        loginLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        formPanel.add(loginLabel, gbc);
+      
         
         // Username
-        gbc.gridy = 1;
+        gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.weightx = 0.3;
         JLabel userLabel = new JLabel("Username:");
@@ -129,19 +112,14 @@ public class LoginFrame extends JFrame {
         loginButton = new JButton("Login");
         loginButton.setFont(new Font("Arial", Font.BOLD, 16));
         loginButton.setBackground(new Color(70, 130, 180));
-        loginButton.setForeground(Color.WHITE);
+        loginButton.setForeground(Color.BLACK);
         loginButton.setFocusPainted(false);
         loginButton.setPreferredSize(new Dimension(200, 40));
         loginButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                handleLogin();
-            }
-        });
+        loginButton.addActionListener(e -> handleLogin());
         formPanel.add(loginButton, gbc);
         
-        // Status Label (for error messages)
+        // Status Label
         gbc.gridy = 4;
         gbc.insets = new Insets(10, 10, 10, 10);
         statusLabel = new JLabel("", SwingConstants.CENTER);
@@ -149,10 +127,10 @@ public class LoginFrame extends JFrame {
         statusLabel.setForeground(Color.RED);
         formPanel.add(statusLabel, gbc);
         
-        // Info Panel (show sample credentials)
+        // Info Panel
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
-        infoPanel.setBackground(new Color(255, 255, 224)); // Light yellow
+        infoPanel.setBackground(new Color(255, 255, 224));
         infoPanel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(new Color(200, 200, 150)),
             BorderFactory.createEmptyBorder(10, 10, 10, 10)
@@ -177,111 +155,75 @@ public class LoginFrame extends JFrame {
         }
         
         // Add panels to main panel
-        mainPanel.add(titleWrapper, BorderLayout.NORTH);
+        mainPanel.add(titlePanel, BorderLayout.NORTH);
         mainPanel.add(formPanel, BorderLayout.CENTER);
         mainPanel.add(infoPanel, BorderLayout.SOUTH);
         
-        // Add main panel to frame
         add(mainPanel);
         
-        // Allow Enter key to login
-        passwordField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                handleLogin();
-            }
-        });
+        passwordField.addActionListener(e -> handleLogin());
     }
     
-    /**
-     * Handle login button click
-     */
     private void handleLogin() {
         String username = usernameField.getText().trim();
         String password = new String(passwordField.getPassword());
         
-        // Validate input
         if (username.isEmpty() || password.isEmpty()) {
             statusLabel.setText("Please enter both username and password");
             return;
         }
         
-        // Show loading message
         statusLabel.setForeground(Color.BLUE);
         statusLabel.setText("Logging in...");
         loginButton.setEnabled(false);
         
-        // Authenticate user
         UserDAO userDAO = new UserDAO();
         User user = userDAO.login(username, password);
         
         if (user != null) {
-            // Login successful!
-            statusLabel.setForeground(new Color(0, 128, 0)); // Green
+            statusLabel.setForeground(new Color(0, 128, 0));
             statusLabel.setText("Login successful! Welcome " + user.getFullName());
-            
-            // Open appropriate dashboard based on role
             openDashboard(user);
-            
-            // Close login window
             dispose();
-            
         } else {
-            // Login failed
             statusLabel.setForeground(Color.RED);
             statusLabel.setText("Invalid username or password. Please try again.");
             loginButton.setEnabled(true);
-            passwordField.setText(""); // Clear password field
+            passwordField.setText("");
         }
     }
     
-    /**
-     * Open the appropriate dashboard based on user role
-     */
     private void openDashboard(User user) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                switch (user.getRole()) {
-                    case "DOCTOR":
-                        new DoctorDashboard(user).setVisible(true);
-                        break;
-                    case "PHARMACIST":
-                        new PharmacistDashboard(user).setVisible(true);
-                        break;
-                    case "CLINIC_ADMIN":
-                        new ClinicAdminDashboard(user).setVisible(true);
-                        break;
-                    case "PHARMACY_MANAGER":
-                        new PharmacyManagerDashboard(user).setVisible(true);
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(null, 
-                            "Unknown role: " + user.getRole(),
-                            "Error", 
-                            JOptionPane.ERROR_MESSAGE);
-                }
+        SwingUtilities.invokeLater(() -> {
+            switch (user.getRole()) {
+                case "DOCTOR":
+                    new DoctorDashboard(user).setVisible(true);
+                    break;
+                case "PHARMACIST":
+                    new PharmacistDashboard(user).setVisible(true);
+                    break;
+                case "CLINIC_ADMIN":
+                    new ClinicAdminDashboard(user).setVisible(true);
+                    break;
+                case "PHARMACY_MANAGER":
+                    new PharmacyManagerDashboard(user).setVisible(true);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, 
+                        "Unknown role: " + user.getRole(),
+                        "Error", 
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
     }
     
-    /**
-     * Main method - Entry point of the application
-     */
     public static void main(String[] args) {
-        // Set look and feel to system default
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        // Create and show login frame
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new LoginFrame().setVisible(true);
-            }
-        });
+        SwingUtilities.invokeLater(() -> new LoginFrame().setVisible(true));
     }
 }
