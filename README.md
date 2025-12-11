@@ -8,7 +8,7 @@ A comprehensive healthcare coordination platform connecting medical clinics with
 
 **Course:** INFO 5100 - Application Engineering and Development  
 **Institution:** Northeastern University Toronto  
-**Semester:** Fall 2024
+**Semester:** Fall 2025
 
 ---
 
