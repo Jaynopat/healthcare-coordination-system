@@ -216,7 +216,6 @@ public class DashboardLauncher extends JFrame {
         String info = 
             "═══════════════════════════════════════════════\n" +
             "  HEALTHCARE COORDINATION SYSTEM\n" +
-            "  Project Requirements Fulfillment\n" +
             "═══════════════════════════════════════════════\n\n" +
             
             "✅ TECHNOLOGY STACK:\n" +
@@ -253,7 +252,7 @@ public class DashboardLauncher extends JFrame {
             "   • JDBC connectivity\n\n" +
             
             "═══════════════════════════════════════════════\n" +
-            "All requirements successfully fulfilled!\n" +
+            "Successfully Implemented!\n" +
             "═══════════════════════════════════════════════";
         
         JTextArea textArea = new JTextArea(info);
